@@ -1,5 +1,5 @@
 基于 `Vue3` + `Element-plus` 封装的 `Table` 组件，欢迎大家交流学习，持续开发中
-### 预览地址：[ds-vue3-table](https://github.com/qidasheng369/ds-vue3-table)
+### 预览地址：[@ds-ui/vue3-table](https://vue3-table.xworker.icu/)
 
 # ds-vue3-table
 
