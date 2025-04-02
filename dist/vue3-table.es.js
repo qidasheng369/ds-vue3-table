@@ -1,27 +1,9 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { defineComponent, resolveComponent, openBlock, createBlock, mergeProps, withCtx, createElementBlock, Fragment, renderList, createSlots, renderSlot, normalizeProps, guardReactiveProps, reactive, ref, computed, resolveDirective, unref, createElementVNode, toDisplayString, createVNode, createCommentVNode, withDirectives } from "vue";
+import { defineComponent, resolveComponent, openBlock, createBlock, mergeProps, withCtx, createElementBlock, Fragment, renderList, createSlots, renderSlot, normalizeProps, guardReactiveProps, reactive, ref, computed, resolveDirective, createElementVNode, toDisplayString, createVNode, createCommentVNode, withDirectives } from "vue";
 const __default__$1 = defineComponent({
   name: "MultistageColumn"
 });
-const _sfc_main$2 = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({}, __default__$1), {
+const _sfc_main$2 = defineComponent({
+  ...__default__$1,
   props: {
     column: {
       type: Object,
@@ -43,14 +25,15 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues
                 key: item.prop,
                 column: item
               }, null, 8, ["column"])) : (openBlock(), createBlock(_component_el_table_column, mergeProps({
-                key: 1,
-                key: item.id
+                key: item.id,
+                ref_for: true
               }, item, { "show-overflow-tooltip": "" }), createSlots({ _: 2 }, [
                 item.slotName ? {
                   name: "default",
                   fn: withCtx((scope) => [
                     renderSlot(_ctx.$slots, item.slotName, { data: scope })
-                  ])
+                  ]),
+                  key: "0"
                 } : void 0
               ]), 1040))
             ], 64);
@@ -60,8 +43,9 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues
       }, 16, ["label", "prop"]);
     };
   }
-}));
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+});
+const _sfc_main$1 = defineComponent({
+  __name: "Pagination",
   props: {
     pageConfig: {
       type: Object,
@@ -91,9 +75,10 @@ const _hoisted_4 = {
   class: "pagination"
 };
 const __default__ = {
-  name: "vue3-xmw-table"
+  name: "ds-vue3-table"
 };
-const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({}, __default__), {
+const _sfc_main = defineComponent({
+  ...__default__,
   props: {
     tableData: {
       type: Array,
@@ -127,8 +112,9 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
     "currentPageChange",
     "multiSelection"
   ],
-  setup(__props, { expose, emit }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
     const prop = __props;
+    const emit = __emit;
     const state = reactive({
       selection: []
     });
@@ -204,7 +190,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
     function sort(prop2, order) {
       commonTableRef.value.sort(prop2, order);
     }
-    expose({
+    __expose({
       clearSelection,
       toggleRowSelection,
       toggleAllSelection,
@@ -222,17 +208,17 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
       const _component_el_table = resolveComponent("el-table");
       const _directive_loading = resolveDirective("loading");
       return openBlock(), createElementBlock("div", _hoisted_1, [
-        unref(_tableConfig).showSeletion && unref(state).selection.length ? (openBlock(), createBlock(_component_el_row, {
+        _tableConfig.value.showSeletion && state.selection.length ? (openBlock(), createBlock(_component_el_row, {
           key: 0,
           justify: "space-between",
           style: { "align-items": "center", "margin": "10px 0" }
         }, {
           default: withCtx(() => [
             createElementVNode("div", _hoisted_2, [
-              createElementVNode("span", _hoisted_3, "\u5DF2\u9009\u4E2D" + toDisplayString(unref(state).selection.length) + "\u9879", 1),
+              createElementVNode("span", _hoisted_3, "\u5DF2\u9009\u4E2D" + toDisplayString(state.selection.length) + "\u9879", 1),
               createVNode(_component_el_divider, { direction: "vertical" }),
               renderSlot(_ctx.$slots, "multiSelectMenu", {
-                selection: unref(state).selection
+                selection: state.selection
               }, void 0, true)
             ]),
             createElementVNode("a", {
@@ -247,11 +233,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
           ref: commonTableRef,
           data: __props.tableData
         }, _ctx.$attrs, {
-          rowKey: unref(_tableConfig).rowKey,
+          rowKey: _tableConfig.value.rowKey,
           onSelectionChange: selectionChange
         }), {
           default: withCtx(() => [
-            unref(_tableConfig).showExpand ? (openBlock(), createBlock(_component_el_table_column, {
+            _tableConfig.value.showExpand ? (openBlock(), createBlock(_component_el_table_column, {
               key: 0,
               type: "expand"
             }, {
@@ -260,21 +246,21 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
               ]),
               _: 3
             })) : createCommentVNode("", true),
-            unref(_tableConfig).showSeletion ? (openBlock(), createBlock(_component_el_table_column, {
+            _tableConfig.value.showSeletion ? (openBlock(), createBlock(_component_el_table_column, {
               key: 1,
               type: "selection",
               width: "60",
-              "reserve-selection": unref(_tableConfig).isCheckMemory,
+              "reserve-selection": _tableConfig.value.isCheckMemory,
               align: "center"
             }, null, 8, ["reserve-selection"])) : createCommentVNode("", true),
-            unref(_tableConfig).showIndexColumn ? (openBlock(), createBlock(_component_el_table_column, {
+            _tableConfig.value.showIndexColumn ? (openBlock(), createBlock(_component_el_table_column, {
               key: 2,
               type: "index",
               index: typeIndex,
               width: "60"
             }, {
               header: withCtx(() => [
-                createElementVNode("span", null, toDisplayString(unref(_tableConfig).indexLabel), 1)
+                createElementVNode("span", null, toDisplayString(_tableConfig.value.indexLabel), 1)
               ]),
               _: 1
             })) : createCommentVNode("", true),
@@ -284,28 +270,29 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
                   key: column.prop,
                   column
                 }, null, 8, ["column"])) : (openBlock(), createBlock(_component_el_table_column, mergeProps({
-                  key: 1,
-                  key: column.id
+                  key: column.id,
+                  ref_for: true
                 }, column, { "show-overflow-tooltip": "" }), createSlots({ _: 2 }, [
                   column.slotName ? {
                     name: "default",
                     fn: withCtx((scope) => [
                       renderSlot(_ctx.$slots, column.slotName, { scope }, void 0, true)
-                    ])
+                    ]),
+                    key: "0"
                   } : void 0
                 ]), 1040))
               ], 64);
             }), 256)),
-            unref(_tableConfig).showHandler ? (openBlock(), createBlock(_component_el_table_column, normalizeProps(mergeProps({ key: 3 }, unref(_tableConfig).handlerConfig)), {
+            _tableConfig.value.showHandler ? (openBlock(), createBlock(_component_el_table_column, normalizeProps(mergeProps({ key: 3 }, _tableConfig.value.handlerConfig)), {
               default: withCtx((scope) => [
                 renderSlot(_ctx.$slots, "handler", { scope }, void 0, true)
               ]),
               _: 3
             }, 16)) : createCommentVNode("", true),
-            unref(_tableConfig).showAppend ? (openBlock(), createBlock(_component_el_table_column, {
+            _tableConfig.value.showAppend ? (openBlock(), createBlock(_component_el_table_column, {
               key: 4,
               type: "append",
-              label: unref(_tableConfig).appendLabel
+              label: _tableConfig.value.appendLabel
             }, {
               default: withCtx((props) => [
                 renderSlot(_ctx.$slots, "append", { props }, void 0, true)
@@ -319,7 +306,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
         ]),
         __props.showPagination ? (openBlock(), createElementBlock("div", _hoisted_4, [
           createVNode(_sfc_main$1, {
-            pageConfig: unref(_paginationConfig),
+            pageConfig: _paginationConfig.value,
             onSizeChange: pageSizeChange,
             onCurrentChange: currentPageChange
           }, null, 8, ["pageConfig"])
@@ -327,8 +314,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({
       ]);
     };
   }
-}));
-var XmwTable = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-ee5835fc"]]);
+});
+var XmwTable = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-1f26fa16"]]);
 XmwTable.install = function(Vue) {
   Vue.component(XmwTable.name, XmwTable);
 };
@@ -346,7 +333,8 @@ const install = function(Vue) {
 if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
-var index = __spreadValues({
-  install
-}, components);
+var index = {
+  install,
+  ...components
+};
 export { index as default };
